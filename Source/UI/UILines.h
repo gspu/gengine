@@ -17,7 +17,7 @@ class Vector2;
 
 class UILines : public UIWidget
 {
-    TYPE_DECL_CHILD();
+    TYPE_DECL();
 public:
     UILines(Actor* owner);
     ~UILines();

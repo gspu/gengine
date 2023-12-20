@@ -23,7 +23,7 @@ struct UIRectangle
 
 class UIRectangles : public UIWidget
 {
-    TYPE_DECL_CHILD();
+    TYPE_DECL();
 public:
     UIRectangles(Actor* owner);
     ~UIRectangles();

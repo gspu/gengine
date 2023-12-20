@@ -28,7 +28,7 @@ enum class EyeType
 
 class FaceController : public Component
 {
-	TYPE_DECL_CHILD();
+	TYPE_DECL();
 public:
 	FaceController(Actor* owner);
 	~FaceController();

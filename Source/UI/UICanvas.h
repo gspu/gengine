@@ -14,7 +14,7 @@
 
 class UICanvas : public UIWidget
 {
-	TYPE_DECL_CHILD();
+	TYPE_DECL();
 public:
 	static const std::vector<UICanvas*>& GetCanvases() { return sCanvases; }
 	static void UpdateInput();

@@ -11,7 +11,7 @@
 
 class UITextBuffer : public UILabel
 {
-	TYPE_DECL_CHILD();
+	TYPE_DECL();
 public:
 	UITextBuffer(Actor* owner);
 	

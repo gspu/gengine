@@ -59,6 +59,7 @@ target_include_directories(gk3 PRIVATE
     Source/IO
     Source/Math
     Source/ObjectModel
+    Source/Persistence
     Source/Platform
     Source/Primitives
     Source/Rendering

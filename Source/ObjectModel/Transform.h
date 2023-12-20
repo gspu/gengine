@@ -17,7 +17,7 @@
 
 class Transform : public Component
 {
-	TYPE_DECL_CHILD();
+	TYPE_DECL();
 public:
 	enum class Space
 	{

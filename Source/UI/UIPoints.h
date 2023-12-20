@@ -16,7 +16,7 @@ class Mesh;
 
 class UIPoints : public UIWidget
 {
-    TYPE_DECL_CHILD();
+    TYPE_DECL();
 public:
     UIPoints(Actor* owner);
     ~UIPoints();

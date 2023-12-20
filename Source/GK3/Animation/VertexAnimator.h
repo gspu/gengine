@@ -48,7 +48,7 @@ struct VertexAnimParams
 
 class VertexAnimator : public Component
 {
-	TYPE_DECL_CHILD();
+	TYPE_DECL();
 public:
 	VertexAnimator(Actor* owner);
 	

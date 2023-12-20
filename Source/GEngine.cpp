@@ -34,6 +34,8 @@
 #include "VideoPlayer.h"
 #include "Window.h"
 
+TYPEINFO_DEF(GEngine, GEngine::OnPersist);
+
 GEngine* GEngine::sInstance = nullptr;
 
 GEngine::GEngine()
@@ -163,11 +165,33 @@ bool GEngine::Initialize()
     #else
     // For dev purposes: just load right into a desired timeblock and location.
     Loader::DoAfterLoading([]() {
-        gGameProgress.SetTimeblock(Timeblock("110A"));
-        gSceneManager.LoadScene("R25");
+        //gGameProgress.SetTimeblock(Timeblock("202P"));
+        //gSceneManager.LoadScene("R25");
+
+        gInventoryManager.AddInventoryItem("Grace", "Church_Pamphlet");
+        gInventoryManager.AddInventoryItem("Grace", "LSR");
+
+        gGameProgress.SetTimeblock(Timeblock("205P"));
+        gSceneManager.LoadScene("R25", []() {
+            gGK3UI.ShowSidney();
+        });
     });
     #endif
 
+    typedef void(GEngine::*GEngineFunc1)();
+    typedef void(GEngine::*GEngineFunc2)(int);
+
+    GEngineFunc1 func1 = &GEngine::TestFunc1;
+    GEngineFunc2 func2 = &GEngine::TestFunc2;
+
+    GEngine& gEngineRef = *this;
+    ((gEngineRef).*(func1))();
+    ((*this).*(func2))(1);
+
+    InstanceDatabase::Get().Persist();
+
+    gSaveManager.Save("My Save Name");
+    
 	/*
 	TODO: This code allows writing out a vertex animation's frames as individual OBJ files.
 	TODO: Maybe move this to some exporter class or something?

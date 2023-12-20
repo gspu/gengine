@@ -6,9 +6,13 @@
 //
 #pragma once
 #include <cstdint>
+#include <cstdio>
 
-class GEngine
+#include "InstanceTracker.h"
+
+class GEngine : public InstanceTracker<GEngine>
 {
+    TYPEINFO_DECL(GEngine);
 public:
     static GEngine* Instance() { return sInstance; }
     
@@ -30,6 +34,21 @@ public:
     // GK-specific stuff here
     void StartGame() const;
     bool IsDemoMode() const { return mDemoMode; }
+
+    void TestFunc1()
+    {
+        printf("TestFunc1 works!\n");
+    }
+
+    void TestFunc2(int x)
+    {
+        printf("TestFunc2 works %i!\n", x);
+    }
+
+    void OnPersist(PersistState& persistState, uint32_t version)
+    {
+        printf("Help help I'm being persisted!\n");
+    }
     
 private:
     // Only one instance of GEngine can exist.

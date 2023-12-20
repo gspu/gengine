@@ -18,11 +18,7 @@ typedef std::size_t Type;
 // Note: std::hash will not necessarily return the same value across runs of a program!
 #define GENERATE_TYPE(x) std::hash<std::string>()(SYMBOL_TO_STR(x));
 
-// USAGE: Add TYPE_DECL* macro inside the class declaration.
-// USAGE: Add TYPE_DEF* macro inside the class implementation file.
-
-//////////////////////////////////////////////
-// Use this version for classes that DO NOT have children.
+// USAGE: Add TYPE_DECL macro inside the class declaration.
 #define TYPE_DECL()                                                 \
 private:                                                            \
     static const Type type;                                         \
@@ -31,41 +27,21 @@ private:                                                            \
 public:                                                             \
     static Type GetType() { return type; }                          \
     static const char* GetTypeName() { return typeName; }           \
-    bool IsTypeOf(const Type t) const { return t == type; }
+    virtual bool IsTypeOf(const Type t) const;
+    //TODO: static PClassType* CreateInstance() { return new PClassType(); }\
 
-#define TYPE_DEF(nameOfClass)                                                         \
-const Type nameOfClass::type = std::hash<std::string>()(SYMBOL_TO_STR(nameOfClass));  \
-const char* nameOfClass::typeName = SYMBOL_TO_STR(nameOfClass);
-//////////////////////////////////////////////
-
-//////////////////////////////////////////////
-// Use this version for base classes that DO have children.
-#define TYPE_DECL_BASE()                                            \
-private:                                                            \
-    static const Type type;                                         \
-                                                                    \
-public:                                                             \
-    static Type GetType() { return type; }                          \
-    virtual bool IsTypeOf(const Type t) const { return t == type; }
-
-#define TYPE_DEF_BASE(nameOfClass)                                                    \
-const Type nameOfClass::type = std::hash<std::string>()(SYMBOL_TO_STR(nameOfClass));
-//////////////////////////////////////////////
-
-//////////////////////////////////////////////
-// Use this version for child classes.
-#define TYPE_DECL_CHILD()                                   \
-private:                                                    \
-    static const Type type;                                 \
-                                                            \
-public:                                                     \
-    static Type GetType() { return type; }                  \
-    virtual bool IsTypeOf(const Type t) const override;
-
-#define TYPE_DEF_CHILD(nameOfParentClass, nameOfChildClass)                                         \
-const Type nameOfChildClass::type = std::hash<std::string>()(SYMBOL_TO_STR(nameOfChildClass));      \
-                                                                                                    \
-bool nameOfChildClass::IsTypeOf(const Type t) const {                                               \
-    return t == nameOfChildClass::type ? true : nameOfParentClass::IsTypeOf(t);                     \
+// USAGE: Add TYPE_DEF macro inside the class implementation file.
+// USAGE: If it is a child class, use TYPE_DEF_CHILD instead.
+#define TYPE_DEF(PClass)                                                                \
+const Type PClass::type = std::hash<std::string>()(SYMBOL_TO_STR(PClass));              \
+const char* PClass::typeName = SYMBOL_TO_STR(PClass);                                   \
+bool PClass::IsTypeOf(const Type t) const {                                             \
+    return t == type;                                                                   \
 }
-//////////////////////////////////////////////
+
+#define TYPE_DEF_CHILD(PParentClass, PClass)                                              \
+const Type PClass::type = std::hash<std::string>()(SYMBOL_TO_STR(PClass));                \
+const char* PClass::typeName = SYMBOL_TO_STR(PClass);                                     \
+bool PClass::IsTypeOf(const Type t) const {                                               \
+    return t == PClass::type ? true : PParentClass::IsTypeOf(t);                          \
+}

@@ -11,7 +11,7 @@
 
 class UIDrag : public UIWidget
 {
-    TYPE_DECL_CHILD();
+    TYPE_DECL();
 public:
     UIDrag(Actor* owner);
 

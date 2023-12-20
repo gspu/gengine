@@ -10,7 +10,7 @@ class Actor;
 
 class Component
 {
-    TYPE_DECL_BASE();
+    TYPE_DECL();
 public:
     Component(Actor* owner);
 	virtual ~Component() { }

@@ -2,7 +2,7 @@
 
 #include "Actor.h"
 
-TYPE_DEF_BASE(Component);
+TYPE_DEF(Component);
 
 Component::Component(Actor* owner) : mOwner(owner)
 {

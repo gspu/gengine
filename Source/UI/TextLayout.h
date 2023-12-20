@@ -52,7 +52,8 @@ public:
 	struct CharInfo
 	{
 		CharInfo(Glyph& glyph, Vector2 pos) : glyph(glyph), pos(pos) { }
-		CharInfo& operator=(const CharInfo& other);
+        CharInfo(const CharInfo& other) : glyph(other.glyph), pos(other.pos) { }
+        CharInfo& operator=(const CharInfo& other);
 		
         // Glyph to use when rendering this text character.
 		Glyph& glyph;
